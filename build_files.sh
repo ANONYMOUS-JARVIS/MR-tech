@@ -1,5 +1,5 @@
 echo " BUILD START"
-python3.11 -m pip install -r requirements.txt
-python3.11 manage.py migrate
-python3.11 manage.py collectstatic --noinput --clear
+python3 pip install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py collectstatic --noinput --clear
 echo " BUILD END"
