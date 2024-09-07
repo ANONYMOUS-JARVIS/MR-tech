@@ -27,6 +27,7 @@ def Index(request):
     context={
         'product':product
     }
+
     return render(request,'index.html',context)
 def Product_view(request):
     add_image=Add_Image_Form()
@@ -356,6 +357,9 @@ def handlerequest(request):
                     payment_order_razor.order_list_ordered_checkbox=True
                     payment_order_razor.save()
                     check_out_id=Check_out_model.objects.get(user=O_id)
+                    print(cart_list_ord.order_list_user)
+                    userdata=Customer.objects.get(user=cart_list_ord.order_list_user)
+                    
                     request.session[
                         "order_completed"
                     ]="your order Placed successfully  and your order will delivered as soon as posable"
@@ -363,6 +367,8 @@ def handlerequest(request):
                     request.session['payment_status']=payment_status
                     request.session['payment_status']=payment_status
                     Invoice_Time=timezone.now()
+                 
+                    
                   
                     context={
                         'payment_order_razor':payment_order_razor,
@@ -370,6 +376,7 @@ def handlerequest(request):
                         'check_out_id':check_out_id,
                         'cart_list_ord':cart_list_ord,
                         'Invoice_Time':Invoice_Time,
+                        "userdata":userdata
                     }
                     print("now")
                     return render(request,'invoice.html',context)
@@ -403,9 +410,10 @@ def Email(request):
         subject=request.POST.get('subject')
         email=request.POST.get('email')
         message=request.POST.get('message')
-        print("working")
-        send_mail(subject,"customer details"+ F_name +" "+L_name+ " "+"message"+ message, "muthurajpostbox@gmail.com",[email])        
         messages.success(request,"Message send successfully")
+        print("working")
+        send_mail(subject,"customer details : "+ F_name +" "+L_name+ " " +"message  :"+ message,  "muthurajpostbox@gmail.com",[email])        
+       
         return render(request,'contact_index.html')
     else:
         print("not a post")

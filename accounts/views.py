@@ -63,6 +63,7 @@ def Signup(request):
                 return redirect('/main/index')
             else:
                 print("login error")
+    messages.success(request,"Welcome <~>")
     return render(request,'accounts/signup.html',context)
 
 def About(request):
